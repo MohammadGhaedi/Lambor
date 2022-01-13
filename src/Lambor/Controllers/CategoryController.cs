@@ -44,7 +44,7 @@ namespace Lambor.Controllers
             {
                 await _categoryService.InsertAsync(new Category(model.Name));
             }
-            return PartialView("_Create", model: model);
+            return Ok();
         }
 
         [AjaxOnly]
