@@ -1,0 +1,85 @@
+﻿@model List<CategoryViewModel>
+
+@{
+    ViewData["Title"] = "مدیریت دسته بندی ها";
+}
+
+<div class="alert alert-warning mt-5">
+    <a href="#" class="close" data-dismiss="alert">×</a>
+   
+</div>
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <partial name="_AllCategoryList" model="Model" />
+    </div>
+    <footer class="card-footer">
+        <a class="btn btn-success" href="#" id="btnCreate">ایجاد دسته بندی جدید</a>
+    </footer>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#btnCreate').click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("Add", "Category")',
+                    renderModalPartialViewUrl: '@Url.Action("Render", "Category")',
+                    renderModalPartialViewData: JSON.stringify({ "id": 0 }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+
+            $("a[id^='btnEdit']").click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var categoryId = $(this).data("edit-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("Edit", "Category")',
+                    renderModalPartialViewUrl: '@Url.Action("Render", "Category")',
+                    renderModalPartialViewData: JSON.stringify({ "id": categoryId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+
+            $("a[id^='btnDelete']").click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var categoryId = $(this).data("delete-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("Delete", "Category")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDelete", "Category")',
+                    renderModalPartialViewData: JSON.stringify({ "id": categoryId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+        });
+    </script>
+}
