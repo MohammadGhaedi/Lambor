@@ -25,6 +25,7 @@ namespace Lambor.Services
         public async Task InsertAsync(Category category)
         {
             await _categories.AddAsync(category);
+            await _uow.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Category input)
@@ -51,19 +52,15 @@ namespace Lambor.Services
             await _uow.SaveChangesAsync();
         }
 
-        public async Task<IList<Category>> GetAllAsync()
-        {
-            return await _categories.ToListAsync();
-        }
 
-        public IList<CategoryViewModel> GetAll()
+        public async Task<IList<CategoryViewModel>> GetAllAsync()
         {
-            return _categories.Select(p =>
+            return await _categories.Select(p =>
                                     new CategoryViewModel
                                     {
                                         Name = p.Name,
-                                        Id =p.Id
-                                    }).ToList();
+                                        Id = p.Id
+                                    }).ToListAsync();
         }
 
 
@@ -77,6 +74,6 @@ namespace Lambor.Services
             return item;
         }
 
-        
+
     }
 }

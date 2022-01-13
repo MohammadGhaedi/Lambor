@@ -31,7 +31,7 @@ namespace Lambor.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var category =  _categoryService.GetAll();
+            var category = await _categoryService.GetAllAsync();
             return View(category);
         }
 
@@ -97,7 +97,6 @@ namespace Lambor.Controllers
         }
 
         [AjaxOnly]
-        
         public async Task<IActionResult> Render([FromBody] ModelIdViewModel model)
         {
             if (!ModelState.IsValid)
@@ -107,7 +106,7 @@ namespace Lambor.Controllers
 
             if (model == null || model.Id == 0)
             {
-                return PartialView("_Create", model: new ModelIdViewModel());
+                return PartialView("_Create", model: new CategoryViewModel());
             }
 
             var category = await _categoryService.GetAsync(model.Id);

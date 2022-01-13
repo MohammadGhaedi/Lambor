@@ -41,7 +41,7 @@ namespace Lambor
                 .WithEncryptionKey("This is my secure key!");
             });
             services.AddCloudscribePagination();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
         }
 
