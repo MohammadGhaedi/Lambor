@@ -1,7 +1,7 @@
-﻿@model List<CategoryViewModel>
+﻿@model List<BrandViewModel>
 
 @{
-    ViewData["Title"] = "مدیریت دسته بندی ها";
+    ViewData["Title"] = "مدیریت برند ها";
 }
 
 
@@ -10,10 +10,10 @@
         <h5 class="card-title">@ViewData["Title"]</h5>
     </div>
     <div class="card-body">
-        <partial name="_AllCategoryList" model="Model" />
+        <partial name="_AllBrandList" model="Model" />
     </div>
     <footer class="card-footer">
-        <a class="btn btn-success" href="#" id="btnCreate">ایجاد دسته بندی جدید</a>
+        <a class="btn btn-success" href="#" id="btnCreate">ایجاد برند جدید</a>
     </footer>
 </div>
 
@@ -25,8 +25,8 @@
                 e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
 
                 $.bootstrapModalAjaxForm({
-                    postUrl: '@Url.Action("Add", "Category")',
-                    renderModalPartialViewUrl: '@Url.Action("Render", "Category")',
+                    postUrl: '@Url.Action("Add", "Brand")',
+                    renderModalPartialViewUrl: '@Url.Action("Render", "Brand")',
                     renderModalPartialViewData: JSON.stringify({ "id": 0 }),
                     loginUrl: '/identity/login',
                     beforePostHandler: function () {
@@ -42,11 +42,11 @@
 
             $("a[id^='btnEdit']").click(function (e) {
                 e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
-                var categoryId = $(this).data("edit-id");
+                var brandId = $(this).data("edit-id");
                 $.bootstrapModalAjaxForm({
-                    postUrl: '@Url.Action("Edit", "Category")',
-                    renderModalPartialViewUrl: '@Url.Action("Render", "Category")',
-                    renderModalPartialViewData: JSON.stringify({ "id": categoryId }),
+                    postUrl: '@Url.Action("Edit", "Brand")',
+                    renderModalPartialViewUrl: '@Url.Action("Render", "Brand")',
+                    renderModalPartialViewData: JSON.stringify({ "id": brandId }),
                     loginUrl: '/identity/login',
                     beforePostHandler: function () {
                     },
@@ -61,12 +61,12 @@
 
             $("a[id^='btnDelete']").click(function (e) {
                 e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
-                var categoryId = $(this).data("delete-id");
+                var brandId = $(this).data("delete-id");
 
                 $.bootstrapModalAjaxForm({
-                    postUrl: '@Url.Action("Delete", "Category")',
-                    renderModalPartialViewUrl: '@Url.Action("RenderDelete", "Category")',
-                    renderModalPartialViewData: JSON.stringify({ "id": categoryId }),
+                    postUrl: '@Url.Action("Delete", "Brand")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDelete", "Brand")',
+                    renderModalPartialViewData: JSON.stringify({ "id": brandId}),
                     loginUrl: '/identity/login',
                     beforePostHandler: function () {
                     },

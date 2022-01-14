@@ -13,5 +13,6 @@ namespace Lambor.Entities
 
         public virtual Category Category { get; set; }
         public int CategoryId { get; set; }
+        public int BrandId { get; set; }
     }
 }
