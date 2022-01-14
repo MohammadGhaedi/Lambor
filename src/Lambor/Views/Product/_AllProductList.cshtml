@@ -1,0 +1,42 @@
+﻿@model List<ProductViewModel>
+
+<div class="table-responsive">
+  <table id="all-product-list" class="table table-striped table-hover table-bordered">
+   <thead class="thead-light">
+    <tr>
+        <th class="text-center">نام </th>
+        <th class="text-center">قیمت</th>
+        <th class="text-center">دسته بندی</th>
+        <th class="text-center">شرح</th>
+       
+    </tr>
+   </thead>
+   <tbody>
+    @if (!Model.Any())
+            {
+        <tr>
+            <td colspan="5" class="text-center">محصول یافت نشد</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            
+            <tr>
+                <td class="text-center">@item.Name</td>
+                <td class="text-center">@item.Price</td>
+                <td class="text-center">@item.CategoryName</td>
+                
+                <td class="text-center">
+                    <a href="#" id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary">ویرایش</a>
+                    <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" class="btn btn-sm btn-danger">حذف</a>
+                </td>
+               
+               
+            </tr>
+        }
+    }
+  </tbody>
+ </table>
+</div>

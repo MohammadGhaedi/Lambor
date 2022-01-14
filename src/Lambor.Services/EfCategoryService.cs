@@ -20,15 +20,16 @@ namespace Lambor.Services
             _uow = uow ?? throw new ArgumentNullException(nameof(uow));
 
             _categories = _uow.Set<Category>();
+
         }
 
-        public async Task InsertAsync(Category category)
+        public async Task InsertAsync(CategoryViewModel category)
         {
-            await _categories.AddAsync(category);
+            await _categories.AddAsync(new Category { Name = category.Name });
             await _uow.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Category input)
+        public async Task UpdateAsync(CategoryViewModel input)
         {
 
             var item = await _categories.FindAsync(input.Id);
@@ -52,7 +53,6 @@ namespace Lambor.Services
             await _uow.SaveChangesAsync();
         }
 
-
         public async Task<IList<CategoryViewModel>> GetAllAsync()
         {
             return await _categories.Select(p =>
@@ -63,15 +63,14 @@ namespace Lambor.Services
                                     }).ToListAsync();
         }
 
-
-        public async Task<Category> GetAsync(int id)
+        public async Task<CategoryViewModel> GetAsync(int id)
         {
             var item = await _categories.FindAsync(id);
             if (item == null)
             {
                 throw new Exception();
             }
-            return item;
+            return  new CategoryViewModel { Name = item.Name,Id=item.Id };
         }
 
 

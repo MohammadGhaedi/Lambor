@@ -7,10 +7,10 @@ namespace Lambor.Services.Contracts
 {
     public interface ICategoryService
     {
-        Task InsertAsync(Category category);
-        Task UpdateAsync(Category input);
+        Task InsertAsync(CategoryViewModel category);
+        Task UpdateAsync(CategoryViewModel input);
         Task DeleteAsync(int id);
-        Task<Category> GetAsync(int id);
+        Task<CategoryViewModel> GetAsync(int id);
         Task<IList<CategoryViewModel>> GetAllAsync();
 
 

@@ -42,7 +42,7 @@ namespace Lambor.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _categoryService.InsertAsync(new Category(model.Name));
+                await _categoryService.InsertAsync (model);
             }
             return Ok();
         }
@@ -62,7 +62,7 @@ namespace Lambor.Controllers
                 else
                 {
                     category.Name = model.Name;
-                    await _categoryService.UpdateAsync(category);
+                    await _categoryService.UpdateAsync(model);
 
                 }
             }
