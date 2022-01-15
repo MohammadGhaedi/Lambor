@@ -187,6 +187,7 @@ namespace Lambor.DataLayer.Context
 
         public virtual DbSet<Category> Categories { set; get; }
         public virtual DbSet<Product> Products { set; get; }
+        public virtual DbSet<Brand> Brands { set; get; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -196,7 +197,7 @@ namespace Lambor.DataLayer.Context
             // we can't use constructor injection anymore, because we are using the `AddDbContextPool<>`
             // Adds all of the ASP.NET Core Identity related mappings at once.
             builder.AddCustomIdentityMappings(this.GetService<IOptionsSnapshot<SiteSettings>>()?.Value);
-
+            
             // Custom application mappings
             builder.SetDecimalPrecision();
             builder.AddDateTimeUtcKindConverter();

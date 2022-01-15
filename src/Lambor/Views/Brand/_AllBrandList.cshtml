@@ -1,7 +1,7 @@
-﻿@model List<CategoryViewModel>
+﻿@model List<BrandViewModel>
 
 <div class="table-responsive">
-  <table id="all-category-list" class="table table-striped table-hover table-bordered">
+  <table id="all-berand-list" class="table table-striped table-hover table-bordered">
    <thead class="thead-light">
     <tr>
         <th class="text-center">نام دسته</th>
@@ -12,7 +12,7 @@
     @if (!Model.Any())
             {
         <tr>
-            <td colspan="5" class="text-center">دسته بندی یافت نشد</td>
+            <td colspan="5" class="text-center">برند یافت نشد</td>
         </tr>
     }
     else
