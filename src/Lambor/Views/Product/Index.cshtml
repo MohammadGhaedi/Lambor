@@ -17,6 +17,71 @@
     </footer>
 </div>
 
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#btnCreate').click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("Add", "Product")',
+                    renderModalPartialViewUrl: '@Url.Action("Render", "Product")',
+                    renderModalPartialViewData: JSON.stringify({ "id": 0 }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                        location.reload();
+                    }
+                });
+            });
+
+            $("a[id^='btnEdit']").click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var productId = $(this).data("edit-id");
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("Edit", "Product")',
+                    renderModalPartialViewUrl: '@Url.Action("Render", "Product")',
+                    renderModalPartialViewData: JSON.stringify({ "id": productId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                        location.reload();
+                    }
+                });
+            });
+
+            $("a[id^='btnDelete']").click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var productId = $(this).data("delete-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("Delete", "Product")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDelete", "Product")',
+                    renderModalPartialViewData: JSON.stringify({ "id": productId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                        location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+}
+
 <div>
     <cs-pager cs-paging-pagesize="@Model.Paging.ItemsPerPage"
               cs-paging-pagenumber="@Model.Paging.CurrentPage"

@@ -73,6 +73,15 @@ namespace Lambor.Services
             return  new CategoryViewModel { Name = item.Name,Id=item.Id };
         }
 
+        public async Task<List<ComboViewModel>> GetAllForDropdown()
+        {
+            return await _categories.Select(p => new ComboViewModel
+            {
+                Name = p.Name,
+                Id = p.Id
+            }).ToListAsync();
+        }
+
 
     }
 }

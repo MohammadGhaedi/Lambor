@@ -12,6 +12,7 @@ namespace Lambor.Services.Contracts
         Task DeleteAsync(int id);
         Task<CategoryViewModel> GetAsync(int id);
         Task<IList<CategoryViewModel>> GetAllAsync();
+        Task<List<ComboViewModel>> GetAllForDropdown();
 
 
     }

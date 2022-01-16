@@ -23,8 +23,8 @@ namespace Lambor.Services
 
         public async Task InsertAsync(ProductViewModel product)
         {
-           await _products.AddAsync(new Product { Name = product.Name,Price=product.Price,Description=product.Description,CategoryId=product.CategoryId,Image=product.Image});
-          await  _uow.SaveChangesAsync();
+            await _products.AddAsync(new Product { Name = product.Name, Price = product.Price, Description = product.Description, CategoryId = product.CategoryId, Image = product.Image, BrandId = product.BrandId });
+            await _uow.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(ProductViewModel input)
@@ -38,8 +38,9 @@ namespace Lambor.Services
             item.Name = input.Name;
             item.Price = input.Price;
             item.Description = input.Description;
-            item.CategoryId  = input.CategoryId;
+            item.CategoryId = input.CategoryId;
             item.Image = input.Image;
+            item.BrandId = input.BrandId;
             await _uow.SaveChangesAsync();
 
         }
@@ -57,38 +58,49 @@ namespace Lambor.Services
 
         public async Task<IList<ProductViewModel>> GetAllAsync()
         {
-            return  await _products.Select(p =>
-            new ProductViewModel()
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Price = p.Price,
-                CategoryName = p.Category.Name,
-                CategoryId = p.CategoryId,
-                Image = p.Image
-            }).ToListAsync();
+            return await _products.Select(p =>
+           new ProductViewModel()
+           {
+               Id = p.Id,
+               Name = p.Name,
+               Price = p.Price,
+               CategoryName = p.Category.Name,
+               CategoryId = p.CategoryId,
+               Image = p.Image,
+               Description = p.Description,
+               BrandId = p.BrandId,
+               BrandName = p.Brand.Name
+           }).ToListAsync();
         }
 
         public async Task<ProductViewModel> GetAsync(int id)
         {
-            var item = await _products.FindAsync(id);
-            if (item == null)
+
+            var item = await _products.Select(item => new ProductViewModel
             {
-                throw new Exception();
-            }
-            return new ProductViewModel { 
-                Id=item.Id,
+                Id = item.Id,
                 Name = item.Name,
                 Price = item.Price,
                 CategoryName = item.Category.Name,
                 CategoryId = item.CategoryId,
-                Image = item.Image
-            } ;
+                Image = item.Image,
+                Description = item.Description,
+                BrandId = item.BrandId,
+                BrandName = item.Brand.Name
+            }).FirstOrDefaultAsync(p => p.Id == id);
+
+            //var item = await _products.FindAsync(id);
+            if (item == null)
+            {
+                throw new Exception();
+            }
+
+            return item;
         }
 
-        public async Task<PagedProductViewModel> GetPagedProductListAsync(int pageNmber,int recordPerPage)
+        public async Task<PagedProductViewModel> GetPagedProductListAsync(int pageNmber, int recordPerPage)
         {
-            var skipCount = pageNmber * recordPerPage;
+            var skipRecords = pageNmber * recordPerPage;
             var query = _products.Select(p =>
             new ProductViewModel()
             {
@@ -97,12 +109,19 @@ namespace Lambor.Services
                 Price = p.Price,
                 CategoryName = p.Category.Name,
                 CategoryId = p.CategoryId,
-                Image = p.Image
+                Image = p.Image,
+                Description = p.Description,
+                BrandId = p.BrandId,
+                BrandName = p.Brand.Name
             });
-            var data = 
-            await query.Skip(skipCount).Take(recordPerPage).ToListAsync();
-            var totalCount = await query.CountAsync();
-            return new PagedProductViewModel { Paging = { TotalItems= totalCount},Items = data  };
+            var data = await query.Skip(skipRecords).Take(recordPerPage).ToListAsync();
+            return
+                new PagedProductViewModel
+                {
+                    Paging =
+                    { TotalItems = await query.CountAsync() },
+                    Items = data
+                };
         }
     }
 }

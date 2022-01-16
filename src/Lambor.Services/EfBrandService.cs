@@ -67,5 +67,15 @@ namespace Lambor.Services
         {
             return await _brands.Select(p => new BrandViewModel {Name = p.Name, Id = p.Id}).ToListAsync();
         }
+
+        public async Task<List<ComboViewModel>> GetAllForDropdown()
+        {
+            return await _brands.Select(p => new ComboViewModel
+            {
+                Name = p.Name,
+                Id = p.Id
+            }).ToListAsync();
+        }
+
     }
 }

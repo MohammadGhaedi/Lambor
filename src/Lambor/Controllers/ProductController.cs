@@ -5,6 +5,7 @@ using Lambor.Services.Identity;
 using Lambor.ViewModels.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -20,14 +21,18 @@ namespace Lambor.Controllers
     {
         private const string ProductNotFound = "محصول مورد نظر یافت نشد";
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
+        private readonly IBrandService _brandService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, ICategoryService categoryService, IBrandService brandService)
         {
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+            _categoryService = categoryService;
+            _brandService = brandService;
         }
-        public async Task<IActionResult> Index(int? page=1)
+        public async Task<IActionResult> Index(int? page = 1)
         {
-            var products = await _productService.GetPagedProductListAsync(page.Value,10);
+            var products = await _productService.GetPagedProductListAsync(page.Value - 1, 7);
             return View(products);
         }
 
@@ -61,6 +66,7 @@ namespace Lambor.Controllers
                 product.Description = model.Description;
                 product.Image = model.Image;
                 product.CategoryId = model.CategoryId;
+                product.BrandId = model.BrandId;
 
                 await _productService.UpdateAsync(model);
 
@@ -99,19 +105,33 @@ namespace Lambor.Controllers
             {
                 return BadRequest(ModelState);
             }
+            var viewModel = new ProductRenderViewModel();
+            viewModel.Product = new ProductViewModel();
 
             if (model == null || model.Id == 0)
             {
-                return PartialView("_Create", model: new ProductViewModel());
+                await FillProductComboes(viewModel);
+                return PartialView("_Create", model: viewModel);
             }
 
             var product = await _productService.GetAsync(model.Id);
             if (product == null)
             {
                 ModelState.AddModelError("", ProductNotFound);
-                return PartialView("_Create", model: new ProductViewModel());
+                await FillProductComboes(viewModel);
+                return PartialView("_Create", model: viewModel);
             }
-            return PartialView("_Create", model: new ProductViewModel { Id = product.Id, Name = product.Name,Price=product.Price,Description=product.Description,CategoryId=product.CategoryId,Image=product.Image });
+
+            viewModel.Product = new ProductViewModel { Id = product.Id, Name = product.Name, Price = product.Price, Description = product.Description, CategoryId = product.CategoryId, Image = product.Image };
+            await FillProductComboes(viewModel,product.CategoryId,product.BrandId);
+            return PartialView("_Create", model: viewModel);
+        }
+
+        private async Task FillProductComboes(ProductRenderViewModel productViewModel,int? categoryId = null, int? brandId = null) 
+        {
+            productViewModel.Categories =new SelectList(await _categoryService.GetAllForDropdown(),"Id","Name",categoryId);
+            productViewModel.Brands =new SelectList(await _brandService.GetAllForDropdown(),"Id","Name",brandId);
+
         }
 
         [AjaxOnly]
