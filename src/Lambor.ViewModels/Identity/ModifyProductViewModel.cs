@@ -1,4 +1,4 @@
-﻿using cloudscribe.Web.Pagination;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,27 +9,27 @@ using System.Threading.Tasks;
 
 namespace Lambor.ViewModels.Identity
 {
-    public class ProductViewModel 
+    public class ModifyProductViewModel
     {
+
         [HiddenInput]
         public int Id { get; set; }
-        [Display(Name="نام")]
+        [Required(ErrorMessage = "*")]
         public string Name { get; set; }
-        [Display(Name = "قیمت")]
+
+        [Required(ErrorMessage ="*")]
         public long Price { get; set; }
-        [Display(Name = "شرح")]
+
         public string Description { get; set; }
-        [Display(Name = "عکس")]
+
         public string Image { get; set; }
-        [Display(Name = "دسته بندی")]
+
+        [Required(ErrorMessage = "*")]
         public int CategoryId { get; set; }
-        [Display(Name = "دسته بندی")]
-        public string CategoryName { get; set; }
-        [Display(Name = "برند")]
+
+        [Required(ErrorMessage = "*")]
         public int BrandId { get; set; }
-        [Display(Name = "برند")]
-        public string BrandName { get; set; }
 
+        public IFormFile ProductImage { get; set; }
     }
-
 }

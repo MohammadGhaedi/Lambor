@@ -21,13 +21,13 @@ namespace Lambor.Services
             _products = _uow.Set<Product>();
         }
 
-        public async Task InsertAsync(ProductViewModel product)
+        public async Task InsertAsync(ModifyProductViewModel product)
         {
             await _products.AddAsync(new Product { Name = product.Name, Price = product.Price, Description = product.Description, CategoryId = product.CategoryId, Image = product.Image, BrandId = product.BrandId });
             await _uow.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(ProductViewModel input)
+        public async Task UpdateAsync(ModifyProductViewModel input)
         {
 
             var item = await _products.FindAsync(input.Id);

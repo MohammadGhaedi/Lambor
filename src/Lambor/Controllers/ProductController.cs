@@ -4,6 +4,7 @@ using Lambor.Services.Contracts;
 using Lambor.Services.Identity;
 using Lambor.ViewModels.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -19,16 +20,19 @@ namespace Lambor.Controllers
     [DisplayName("مدیریت محصولات")]
     public class ProductController : Controller
     {
-        private const string ProductNotFound = "محصول مورد نظر یافت نشد";
+        private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IBrandService _brandService;
+        private const string ProductNotFound = "محصول مورد نظر یافت نشد";
 
-        public ProductController(IProductService productService, ICategoryService categoryService, IBrandService brandService)
+
+        public ProductController(IProductService productService, ICategoryService categoryService, IBrandService brandService, IWebHostEnvironment hostEnvironment)
         {
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
             _categoryService = categoryService;
             _brandService = brandService;
+            webHostEnvironment = hostEnvironment;
         }
         public async Task<IActionResult> Index(int? page = 1)
         {
@@ -39,7 +43,7 @@ namespace Lambor.Controllers
         [AjaxOnly]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(ProductViewModel model)
+        public async Task<IActionResult> Add(ModifyProductViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -51,7 +55,7 @@ namespace Lambor.Controllers
         [AjaxOnly]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ProductViewModel model)
+        public async Task<IActionResult> Edit(ModifyProductViewModel model)
         {
             if (ModelState.IsValid)
             {

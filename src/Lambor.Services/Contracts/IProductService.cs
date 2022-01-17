@@ -7,8 +7,8 @@ namespace Lambor.Services.Contracts
 {
     public interface IProductService
     {
-        Task InsertAsync(ProductViewModel product);
-        Task UpdateAsync(ProductViewModel input);
+        Task InsertAsync(ModifyProductViewModel product);
+        Task UpdateAsync(ModifyProductViewModel input);
         Task DeleteAsync(int id);
         Task<IList<ProductViewModel>> GetAllAsync();
         Task<ProductViewModel> GetAsync(int id);
