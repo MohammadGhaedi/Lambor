@@ -26,7 +26,8 @@ namespace Lambor.Controllers
         }
 
         [HttpGet]
-        public async Task<List<ProductViewModel>> GetAllProducts(GetAllProductInputViewModel input)
+        [Route("GetAllProducts")]
+        public async Task<List<ProductViewModel>> GetAllProducts([FromQuery] GetAllProductInputViewModel input)
         {
             return await _productService.GetAllAsync(input);
         }
