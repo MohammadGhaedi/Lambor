@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Lambor.DataLayer.Context;
 using Lambor.Entities;
 using Lambor.Services.Contracts;
+using Lambor.ViewModels.Api;
 using Microsoft.EntityFrameworkCore;
 using Lambor.ViewModels.Identity;
 
@@ -56,7 +57,7 @@ namespace Lambor.Services
             await _uow.SaveChangesAsync();
         }
 
-        public async Task<IList<ProductViewModel>> GetAllAsync()
+        public async Task<List<ProductViewModel>> GetAllAsync()
         {
             return await _products.Select(p =>
            new ProductViewModel()
@@ -71,6 +72,37 @@ namespace Lambor.Services
                BrandId = p.BrandId,
                BrandName = p.Brand.Name
            }).ToListAsync();
+        }
+
+        public async Task<List<ProductViewModel>> GetAllAsync(GetAllProductInputViewModel input)
+        {
+            var query = _products.AsQueryable();
+            if (input.CategoryId.HasValue)
+            {
+                query = query.Where(x => x.CategoryId == input.CategoryId.Value);
+            }
+            if (input.BrandId.HasValue)
+            {
+                query = query.Where(x => x.BrandId == input.BrandId.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(input.Filter))
+            {
+                query = query.Where(x => x.Name.Contains(input.Filter));
+            }
+
+            return await query.Select(p => new ProductViewModel()
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price,
+                CategoryName = p.Category.Name,
+                CategoryId = p.CategoryId,
+                Image = p.Image,
+                Description = p.Description,
+                BrandId = p.BrandId,
+                BrandName = p.Brand.Name
+            }).ToListAsync();
         }
 
         public async Task<ProductViewModel> GetAsync(int id)
