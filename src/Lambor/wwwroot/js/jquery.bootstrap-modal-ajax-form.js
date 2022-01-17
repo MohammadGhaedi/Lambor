@@ -9,7 +9,7 @@
             beforePostHandler: null,
             completeHandler: null,
             errorHandler: null,
-            fileInputIds:null
+            fileInputIds: null
         };
         options = $.extend(defaults, options);
 
@@ -74,22 +74,31 @@
                 if (options.beforePostHandler)
                     options.beforePostHandler();
 
-                var formData = $(this).serialize();
+                var formData = new FormData();
+
+                $.each($(this).serializeArray(), function (i, field) {
+                    if (!options.fileInputIds || $.inArray(field.name, options.fileInputIds)==-1)
+                        formData.append(field.name, field.value);
+                });
 
                 if (options.fileInputIds) {
-                    for (var i = 0; i < options.fileInputIds; i++) {
+                    for (var i = 0; i < options.fileInputIds.length; i++) {
                         var fileId = options.fileInputIds[i];
                         var fileInput = $('#' + fileId)[0];
                         var file = fileInput.files[0];
                         formData.append(fileId, file);
                     }
                 }
+
+
                 //اطلاعات نباید کش شوند
                 $.ajaxSetup({ cache: false });
                 $.ajax({
                     url: options.postUrl,
                     type: "POST",
                     data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function (result) {
                         if (result.success) {
                             $('#dialogDiv').modal('hide');

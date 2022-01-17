@@ -26,7 +26,7 @@
         {
             
             <tr>
-                <td class="text-center"><img src="@item.Image" class="img-thumbnail" /></td>
+                <td class="text-center"><img src="@(string.IsNullOrWhiteSpace(item.Image)?"/images/product.png":item.Image)" class="rounded img-thumbnail" height="50" width="50" /></td>
                 <td class="text-center">@item.Name</td>
                 <td class="text-center">@item.Price</td>
                 <td class="text-center">@item.CategoryName</td>

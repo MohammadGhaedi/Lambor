@@ -27,7 +27,6 @@
             "node_modules/bootstrap/dist/js/bootstrap.min.js",
             "scripts/jquery.bootstrap-modal-confirm.js",
             "scripts/jquery.bootstrap-modal-alert.js",
-            "scripts/jquery.bootstrap-modal-ajax-form.js",
             "scripts/custom.js"
         ],
         "minify": {

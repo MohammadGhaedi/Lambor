@@ -17,6 +17,7 @@
     <ProjectReference Include="..\Lambor.IocConfig\Lambor.IocConfig.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="DNTBreadCrumb.Core" Version="1.9.3" />
     <PackageReference Include="DNTCaptcha.Core" Version="4.1.0" />
     <PackageReference Include="DNTCommon.Web.Core" Version="2.9.4" />
@@ -45,7 +46,13 @@
     <Watch Include="**\*.js" Exclude="node_modules\**\*;**\*.js.map;obj\**\*;bin\**\*;wwwroot\**\*;src\**\*" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="wwwroot\js\jquery.bootstrap-modal-ajax-form.js" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="wwwroot\Uploads\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\js\jquery.bootstrap-modal-ajax-form.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(MSBuildProjectDirectory)\node_modules') ">

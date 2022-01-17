@@ -70,9 +70,10 @@
                 <div class="form-group row">
                     <label asp-for="Product.BrandId" class="col-md-3 col-form-label text-md-left"></label>
                     <div class="col-md-9">
+                        <input type="hidden" asp-for="Product.Image" />
                         @if (!string.IsNullOrWhiteSpace(Model.Product.Image))
                         {
-                            <img src="Product.Image" class="img-thumbnail" />
+                            <img src="@Model.Product.Image" class="img-thumbnail" />
                         }
                         <input name="ProductImage" id="ProductImage" type="file" accept=".jpg,jpeg,png" />
                         <span asp-validation-for="Product.Image" class="text-danger"></span>
