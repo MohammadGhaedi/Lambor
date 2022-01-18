@@ -53,7 +53,7 @@ namespace Lambor.Services
             await _uow.SaveChangesAsync();
         }
 
-        public async Task<IList<CategoryViewModel>> GetAllAsync()
+        public async Task<List<CategoryViewModel>> GetAllAsync()
         {
             return await _categories.Select(p =>
                                     new CategoryViewModel

@@ -19,10 +19,14 @@ namespace Lambor.Controllers
     public class AppApiController : Controller
     {
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
+        private readonly IBrandService _brandService;
 
-        public AppApiController(IProductService productService)
+        public AppApiController(IProductService productService,ICategoryService categoryService,IBrandService brandService)
         {
             _productService = productService;
+            _categoryService = categoryService;
+            _brandService = brandService;
         }
 
         [HttpGet]
@@ -31,5 +35,20 @@ namespace Lambor.Controllers
         {
             return await _productService.GetAllAsync(input);
         }
+
+        [HttpGet]
+        [Route("GetAllCategories")]
+        public async Task<List<CategoryViewModel>> GetAllCategories()
+        {
+            return await _categoryService.GetAllAsync();
+        }
+
+        [HttpGet]
+        [Route("GetAllBrands")]
+        public async Task<List<BrandViewModel>> GetAllBrands()
+        {
+            return await _brandService.GetAllAsync();
+        }
+
     }
 }

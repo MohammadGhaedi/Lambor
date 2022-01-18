@@ -63,7 +63,7 @@ namespace Lambor.Services
             return item;
         }
 
-        public async Task<IList<BrandViewModel>> GetAllAsync()
+        public async Task<List<BrandViewModel>> GetAllAsync()
         {
             return await _brands.Select(p => new BrandViewModel {Name = p.Name, Id = p.Id}).ToListAsync();
         }
