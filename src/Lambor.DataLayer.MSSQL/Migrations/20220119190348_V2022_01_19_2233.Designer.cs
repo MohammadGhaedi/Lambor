@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lambor.DataLayer.MSSQL.Migrations
 {
     [DbContext(typeof(MsSqlDbContext))]
-    [Migration("20220119164034_V2022_01_19_2010")]
-    partial class V2022_01_19_2010
+    [Migration("20220119190348_V2022_01_19_2233")]
+    partial class V2022_01_19_2233
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -660,10 +660,9 @@ namespace Lambor.DataLayer.MSSQL.Migrations
             modelBuilder.Entity("Lambor.Entities.Order", b =>
                 {
                     b.Property<long>("Id")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CostumerAddress")
                         .HasColumnType("nvarchar(max)");
@@ -683,12 +682,13 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                     b.Property<DateTime>("OrderDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("OrderStatus")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("int");
 
-                    b.HasKey("Id", "UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -865,7 +865,6 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                     b.HasOne("Lambor.Entities.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
-                        .HasPrincipalKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

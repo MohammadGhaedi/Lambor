@@ -13,12 +13,13 @@ namespace Lambor.DataLayer.Configurations
     {
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
-            builder.HasKey(x => x.Id);
+
+            builder.HasKey(p => p.Id);
             builder.Property(orderItem => orderItem.Count).IsRequired();
 
             builder.HasOne(p => p.Order)
            .WithMany(x => x.OrderItems)
-           .HasForeignKey(x => x.OrderId).HasPrincipalKey(x => x.Id)
+           .HasForeignKey(x => x.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(p => p.Product)

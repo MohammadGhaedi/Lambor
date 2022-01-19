@@ -10,6 +10,7 @@ namespace Lambor.Entities
     public class OrderItem
     {
         public long Id { get; set; }
+
         public int Count { get; set; }
 
         public virtual Product Product { get; set; }
@@ -17,7 +18,5 @@ namespace Lambor.Entities
 
         public virtual Order Order { get; set; }
         public long OrderId { get; set; }
-
-
     }
 }

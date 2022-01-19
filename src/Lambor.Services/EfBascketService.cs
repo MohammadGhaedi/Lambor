@@ -76,14 +76,15 @@ namespace Lambor.Services
 
         public async Task SubmitBascket(SubmitBascketViewModel input)
         {
-            var orderItems = await _basckets.Select(p=> new OrderItem()
+            var orderItems = await _basckets.Select(p => new OrderItem()
             {
-                Count=p.Count,
+                Count = p.Count,
                 ProductId = p.ProductId,
-                OrderId = GetCurrentUserId()
             }).ToListAsync();
 
-            await _orders.AddAsync(new Order { CostumerName = input.CostumerName, CostumerPhone = input.CostumerPhone, CostumerAddress = input.CostumerAddress, Description = input.Description, OrderDateTime = DateTime.Now, OrderStatus = 0, UserId = GetCurrentUserId(),OrderItems= orderItems });
+            await _orders.AddAsync(new Order { CostumerName = input.CostumerName, CostumerPhone = input.CostumerPhone, CostumerAddress = input.CostumerAddress, Description = input.Description, OrderDateTime = DateTime.Now, OrderStatus = 0, UserId = GetCurrentUserId(), OrderItems = orderItems });
+
+            await Clear();
             await _uow.SaveChangesAsync();
         }
 

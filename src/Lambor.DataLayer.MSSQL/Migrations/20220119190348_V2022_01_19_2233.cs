@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lambor.DataLayer.MSSQL.Migrations
 {
-    public partial class V2022_01_19_2010 : Migration
+    public partial class V2022_01_19_2233 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -337,19 +337,19 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CostumerName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     CostumerPhone = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
                     CostumerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OrderStatus = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    OrderStatus = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => new { x.Id, x.UserId });
-                    table.UniqueConstraint("AK_Orders_Id", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Orders_AppUsers_UserId",
                         column: x => x.UserId,
