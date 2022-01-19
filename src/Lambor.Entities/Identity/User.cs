@@ -51,6 +51,9 @@ namespace Lambor.Entities.Identity
 
         public bool IsActive { get; set; } = true;
 
+        [StringLength(100)]
+        public string ApiKey { get; set; }
+
         public virtual ICollection<UserUsedPassword> UserUsedPasswords { get; set; }
 
         public virtual ICollection<UserToken> UserTokens { get; set; }
@@ -60,5 +63,12 @@ namespace Lambor.Entities.Identity
         public virtual ICollection<UserLogin> Logins { get; set; }
 
         public virtual ICollection<UserClaim> Claims { get; set; }
+
+        public virtual ICollection<Bascket> Basckets { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
+
+
+
     }
 }

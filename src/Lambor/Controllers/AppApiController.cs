@@ -21,12 +21,14 @@ namespace Lambor.Controllers
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IBrandService _brandService;
+        private readonly IBascketService _bascketService;
 
-        public AppApiController(IProductService productService,ICategoryService categoryService,IBrandService brandService)
+        public AppApiController(IProductService productService,ICategoryService categoryService,IBrandService brandService,IBascketService bascketService)
         {
             _productService = productService;
             _categoryService = categoryService;
             _brandService = brandService;
+            _bascketService = bascketService;
         }
 
         [HttpGet]
@@ -48,6 +50,20 @@ namespace Lambor.Controllers
         public async Task<List<BrandViewModel>> GetAllBrands()
         {
             return await _brandService.GetAllAsync();
+        }
+
+        [HttpGet]
+        [Route("GetAllBasckets")]
+        public async Task<List<BascketVeiwModel>> GetAllBasckets([FromQuery] GetAllBascketVeiwModel input)
+        {
+            return await _bascketService.GetAllAsync(input);
+        }
+
+        [HttpGet]
+        [Route("AddToBascket")]
+        public async Task AddToBascket([FromQuery] AddToBascketViewModel input)
+        {
+            await _bascketService.InsertAsync(input);
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using Lambor.Entities.AuditableEntity;
+using System.Collections.Generic;
 
 namespace Lambor.Entities
 {
@@ -14,5 +15,10 @@ namespace Lambor.Entities
         public int CategoryId { get; set; }
         public virtual Brand Brand { get; set; }
         public int BrandId { get; set; }
+
+
+        public virtual ICollection<Bascket> Basckets { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
+
     }
 }

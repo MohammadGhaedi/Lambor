@@ -8,6 +8,7 @@ namespace Lambor.DataLayer.Mappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+
             builder.ToTable("AppUsers");
         }
     }
