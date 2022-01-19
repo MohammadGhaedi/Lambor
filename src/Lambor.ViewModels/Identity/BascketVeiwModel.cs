@@ -10,8 +10,6 @@ namespace Lambor.ViewModels.Identity
 {
     public class BascketVeiwModel
     {
-        [HiddenInput]
-        public int Id { get; set; }
 
         [Display(Name = "تعداد")]
         public int Count { get; set; }

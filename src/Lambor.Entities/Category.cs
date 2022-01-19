@@ -3,7 +3,7 @@ using Lambor.Entities.AuditableEntity;
 
 namespace Lambor.Entities
 {
-    public class Category : IAuditableEntity
+    public class Category 
     {
         public int Id { get; set; }
 

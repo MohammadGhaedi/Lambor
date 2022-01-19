@@ -23,7 +23,7 @@ namespace Lambor.Controllers
         private readonly IBrandService _brandService;
         private readonly IBascketService _bascketService;
 
-        public AppApiController(IProductService productService,ICategoryService categoryService,IBrandService brandService,IBascketService bascketService)
+        public AppApiController(IProductService productService, ICategoryService categoryService, IBrandService brandService, IBascketService bascketService)
         {
             _productService = productService;
             _categoryService = categoryService;
@@ -65,6 +65,28 @@ namespace Lambor.Controllers
         {
             await _bascketService.InsertAsync(input);
         }
+
+        [HttpGet]
+        [Route("RemoveFromBascket")]
+        public async Task RemoveFromBascket([FromQuery] RemoveFromBascketViewModel input)
+        {
+            await _bascketService.DeleteAsync(input);
+        }
+
+        [HttpGet]
+        [Route("ClearBascket")]
+        public async Task ClearBascket()
+        {
+            await _bascketService.Clear();
+        }
+
+        [HttpGet]
+        [Route("SubmitBascket")]
+        public async Task SubmitBascket([FromQuery] SubmitBascketViewModel input)
+        {
+            await _bascketService.SubmitBascket(input);
+        }
+
 
     }
 }

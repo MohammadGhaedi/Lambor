@@ -10,5 +10,8 @@ namespace Lambor.Services.Contracts
     {
         Task<List<BascketVeiwModel>> GetAllAsync(GetAllBascketVeiwModel input);
         Task InsertAsync(AddToBascketViewModel bascket);
+        Task DeleteAsync(RemoveFromBascketViewModel input);
+        Task Clear();
+        Task SubmitBascket(SubmitBascketViewModel input);
     }
 }

@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace Lambor.Entities
 {
-    public class Bascket : IAuditableEntity
+    public class Bascket
     {
-        public int Id { get; set; }
         public int Count { get; set; }
 
 

@@ -4,7 +4,7 @@ using Lambor.Entities.AuditableEntity;
 
 namespace Lambor.Entities
 {
-    public class Brand : IAuditableEntity
+    public class Brand 
     {
         public Brand()
         {

@@ -1,4 +1,5 @@
 ﻿using DNTCommon.Web.Core;
+using DNTPersianUtils.Core;
 using Lambor.DataLayer.Context;
 using Lambor.Entities;
 using Lambor.Services.Contracts;
@@ -18,6 +19,7 @@ namespace Lambor.Services
     {
         private readonly IUnitOfWork _uow;
         private readonly DbSet<Bascket> _basckets;
+        private readonly DbSet<Order> _orders;
         private readonly IHttpContextAccessor _contextAccessor;
 
 
@@ -25,34 +27,77 @@ namespace Lambor.Services
         {
             _uow = uow ?? throw new ArgumentNullException(nameof(_uow));
             _basckets = _uow.Set<Bascket>();
+            _orders = _uow.Set<Order>();
             _contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(contextAccessor));
         }
 
-        public async Task InsertAsync(AddToBascketViewModel bascket)
+        public async Task InsertAsync(AddToBascketViewModel input)
         {
-            await _basckets.AddAsync(new Bascket {
-                Count = bascket.Count, ProductId = bascket.ProductId, UserId = GetCurrentUserId()
-            });
+            var item = await _basckets.FirstOrDefaultAsync(p => p.UserId == GetCurrentUserId() && p.ProductId == input.ProductId);
+
+            if (item == null)
+            {
+                await _basckets.AddAsync(new Bascket
+                {
+                    Count = input.Count.HasValue ? (int)input.Count : 1,
+                    ProductId = input.ProductId,
+                    UserId = GetCurrentUserId()
+                });
+            }
+            else
+            {
+                item.Count = input.Count.HasValue ? (int)input.Count : item.Count + 1;
+
+            }
+
+            await _uow.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(RemoveFromBascketViewModel input)
+        {
+            var item = await _basckets.FirstOrDefaultAsync(p => p.UserId == GetCurrentUserId() && p.ProductId == input.ProductId);
+
+            if (item == null)
+            {
+                throw new Exception();
+            }
+
+            if (item.Count == 1 || input.Count == 0)
+            {
+                _basckets.Remove(item);
+            }
+
+            else
+            {
+                item.Count = input.Count.HasValue ? (int)input.Count : item.Count - 1;
+            }
+            await _uow.SaveChangesAsync();
+        }
+
+        public async Task SubmitBascket(SubmitBascketViewModel input)
+        {
+            var orderItems = await _basckets.Select(p=> new OrderItem()
+            {
+                Count=p.Count,
+                ProductId = p.ProductId,
+                OrderId = GetCurrentUserId()
+            }).ToListAsync();
+
+            await _orders.AddAsync(new Order { CostumerName = input.CostumerName, CostumerPhone = input.CostumerPhone, CostumerAddress = input.CostumerAddress, Description = input.Description, OrderDateTime = DateTime.Now, OrderStatus = 0, UserId = GetCurrentUserId(),OrderItems= orderItems });
             await _uow.SaveChangesAsync();
         }
 
         public async Task<List<BascketVeiwModel>> GetAllAsync(GetAllBascketVeiwModel input)
         {
             var query = _basckets.AsQueryable();
-            if (input.UserId.HasValue)
-            {
-                query = query.Where(x => x.UserId == input.UserId.Value);
-            }
+
             if (input.ProductId.HasValue)
             {
                 query = query.Where(x => x.ProductId == input.ProductId.Value);
             }
 
-
-
             return await query.Select(p => new BascketVeiwModel()
             {
-                Id = p.Id,
                 Count = p.Count,
                 UserName = p.User.DisplayName,
                 UserId = p.UserId,
@@ -61,8 +106,15 @@ namespace Lambor.Services
             }).ToListAsync();
         }
 
-
-        private int GetCurrentUserId() => _contextAccessor.HttpContext.User.Identity.GetUserId<int>();
+        public async Task Clear()
+        {
+            _uow.RemoveRange(_basckets);
+            await _uow.SaveChangesAsync();
+        }
+        private int GetCurrentUserId()
+        {
+            return _contextAccessor.HttpContext.User.Identity.GetUserId<int>();
+        }
 
 
     }

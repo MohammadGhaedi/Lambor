@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lambor.DataLayer.MSSQL.Migrations
 {
-    public partial class V2022_01_19_0628 : Migration
+    public partial class V2022_01_19_2010 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -139,15 +139,7 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    CreatedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    CreatedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    CreatedByUserId = table.Column<int>(type: "int", nullable: true),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    ModifiedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ModifiedByUserId = table.Column<int>(type: "int", nullable: true),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -160,15 +152,7 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    CreatedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    CreatedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    CreatedByUserId = table.Column<int>(type: "int", nullable: true),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    ModifiedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ModifiedByUserId = table.Column<int>(type: "int", nullable: true),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -385,15 +369,7 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    BrandId = table.Column<int>(type: "int", nullable: false),
-                    CreatedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    CreatedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    CreatedByUserId = table.Column<int>(type: "int", nullable: true),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    ModifiedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ModifiedByUserId = table.Column<int>(type: "int", nullable: true),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    BrandId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -416,23 +392,13 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                 name: "Basckets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    Count = table.Column<int>(type: "int", nullable: false),
-                    CreatedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    CreatedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    CreatedByUserId = table.Column<int>(type: "int", nullable: true),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    ModifiedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ModifiedByUserId = table.Column<int>(type: "int", nullable: true),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    Count = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Basckets", x => new { x.Id, x.ProductId, x.UserId });
+                    table.PrimaryKey("PK_Basckets", x => new { x.ProductId, x.UserId });
                     table.ForeignKey(
                         name: "FK_Basckets_AppUsers_UserId",
                         column: x => x.UserId,
@@ -530,11 +496,6 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                 name: "IX_AppUserUsedPasswords_UserId",
                 table: "AppUserUsedPasswords",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Basckets_ProductId",
-                table: "Basckets",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Basckets_UserId",

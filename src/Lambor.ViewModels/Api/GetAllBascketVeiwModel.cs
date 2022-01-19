@@ -8,10 +8,7 @@ namespace Lambor.ViewModels.Api
 {
     public class GetAllBascketVeiwModel
     {
-        public int? UserId { get; set; }
-
         public int? ProductId { get; set; }
-
 
     }
 }

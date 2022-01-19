@@ -13,12 +13,10 @@ namespace Lambor.DataLayer.Mappings
     {
         public void Configure(EntityTypeBuilder<Bascket> builder)
         {
-            builder.Property(p => p.Id).ValueGeneratedOnAdd();
             builder.Property(bascket => bascket.Count).IsRequired();
 
             builder.HasKey(table => new
             {
-                table.Id,
                 table.ProductId,
                 table.UserId
             });
