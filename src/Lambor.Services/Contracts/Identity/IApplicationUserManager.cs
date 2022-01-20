@@ -1068,5 +1068,6 @@ namespace Lambor.Services.Contracts.Identity
         #endregion
 
         Task<User> FindByApiKey(string apiKey);
+        Task<User> CreateUserApiKey(int userId);
     }
 }
