@@ -25,6 +25,8 @@ namespace Lambor.ViewModels.Identity
         public DateTime OrderDateTime { get; set; }
         [Display(Name = "وضعیت سفارش")]
         public OrderStatus OrderStatus { get; set; }
-        public List<OrderItem> OrderItems { get; set; }
+        public List<OrderItemViewModel> OrderItems { get; set; }
     }
+
+    
 }

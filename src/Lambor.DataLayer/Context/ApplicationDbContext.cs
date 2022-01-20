@@ -188,7 +188,7 @@ namespace Lambor.DataLayer.Context
         public virtual DbSet<Category> Categories { set; get; }
         public virtual DbSet<Product> Products { set; get; }
         public virtual DbSet<Brand> Brands { set; get; }
-        public virtual DbSet<Bascket> Basckets { set; get; }
+        public virtual DbSet<Basket> Baskets { set; get; }
         public virtual DbSet<Order> Orders { set; get; }
         public virtual DbSet<OrderItem> OrderItems { set; get; }
 

@@ -65,7 +65,7 @@ namespace Lambor.Entities.Identity
 
         public virtual ICollection<UserClaim> Claims { get; set; }
 
-        public virtual ICollection<Bascket> Basckets { get; set; }
+        public virtual ICollection<Basket> Baskets { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
 

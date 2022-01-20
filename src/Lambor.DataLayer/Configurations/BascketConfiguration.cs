@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Lambor.DataLayer.Mappings
 {
-    public class BascketConfiguration : IEntityTypeConfiguration<Bascket>
+    public class BasketConfiguration : IEntityTypeConfiguration<Basket>
     {
-        public void Configure(EntityTypeBuilder<Bascket> builder)
+        public void Configure(EntityTypeBuilder<Basket> builder)
         {
-            builder.Property(bascket => bascket.Count).IsRequired();
+            builder.Property(Basket => Basket.Count).IsRequired();
 
             builder.HasKey(table => new
             {
@@ -21,11 +21,11 @@ namespace Lambor.DataLayer.Mappings
                 table.UserId
             });
             builder.HasOne(p => p.User)
-           .WithMany(x => x.Basckets)
+           .WithMany(x => x.Baskets)
            .HasForeignKey(x => x.UserId);
 
             builder.HasOne(p => p.Product)
-          .WithMany(x => x.Basckets)
+          .WithMany(x => x.Baskets)
           .HasForeignKey(x => x.ProductId);
         }
     }

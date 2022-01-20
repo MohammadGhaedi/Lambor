@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lambor.ViewModels.Api
 {
-    public class GetAllBascketVeiwModel
+    public class GetAllBasketVeiwModel
     {
         public int? ProductId { get; set; }
 

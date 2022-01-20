@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lambor.ViewModels.Identity
 {
-    public class BascketVeiwModel
+    public class BasketVeiwModel
     {
 
         [Display(Name = "تعداد")]

@@ -26,9 +26,9 @@ namespace Lambor.Services
             await _orders.AddAsync(order);
             await _uow.SaveChangesAsync();
         }
-        public async Task UpdateAsync(Order order)
+        public async Task<OrderViewModel> UpdateAsync(OrderViewModel order)
         {
-            var item = await _orders.Include(x=>x.OrderItems).FirstOrDefaultAsync(q=>q.Id==order.Id);
+            var item = await _orders.FirstOrDefaultAsync(q=>q.Id==order.Id);
             if (item == null)
             {
                 throw new Exception();
@@ -39,13 +39,23 @@ namespace Lambor.Services
             item.Description = order.Description;
             item.OrderDateTime = order.OrderDateTime;
             item.OrderStatus = order.OrderStatus;
-            item.OrderItems.Clear();
-            item.OrderItems = order.OrderItems;
+            //item.OrderItems.Clear();
+            //item.OrderItems = order.OrderItems;
             await _uow.SaveChangesAsync();
+
+            return new OrderViewModel
+            {
+                Description = item.Description,
+                OrderDateTime = item.OrderDateTime,
+                OrderStatus = item.OrderStatus,
+                CostumerAddress = item.CostumerAddress,
+                CostumerName = item.CostumerName,
+                CostumerPhone = item.CostumerPhone
+            };
         }
-        public async Task DeleteAsync(int Id)
+        public async Task DeleteAsync(OrderViewModel input)
         {
-            var item = await _orders.FindAsync(Id);
+            var item = await _orders.FindAsync(input.Id);
             if (item == null)
             {
                 throw new Exception();
@@ -99,15 +109,26 @@ namespace Lambor.Services
             }).ToListAsync();
         }
 
-        public async Task<Order> GetAsync(int Id)
+        public async Task<OrderViewModel> GetAsync(OrderViewModel input)
         {
-            var item = await _orders.FindAsync(Id);
+            var item = await _orders.FindAsync(input.Id);
+
             if (item==null)
             {
                 throw new Exception();
             }
 
-            return item;
+            return new OrderViewModel
+            {
+                CostumerAddress = item.CostumerAddress,
+                CostumerName = item.CostumerName,
+                CostumerPhone = item.CostumerPhone,
+                Description = item.Description,
+                Id = item.Id,
+                OrderDateTime = item.OrderDateTime,
+                OrderStatus = item.OrderStatus
+            };
         }
+
     }
 }

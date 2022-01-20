@@ -15,8 +15,8 @@ namespace Lambor.DataLayer.Mappings
         {
             builder.HasKey(table => table.Id);
 
-            builder.Property(bascket => bascket.CostumerName).HasMaxLength(450).IsRequired();
-            builder.Property(bascket => bascket.CostumerPhone).HasMaxLength(11);
+            builder.Property(Basket => Basket.CostumerName).HasMaxLength(450).IsRequired();
+            builder.Property(Basket => Basket.CostumerPhone).HasMaxLength(11);
 
 
             builder.HasOne(p => p.User)

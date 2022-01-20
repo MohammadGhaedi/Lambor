@@ -6,12 +6,12 @@ using Lambor.ViewModels.Identity;
 
 namespace Lambor.Services.Contracts
 {
-    public interface IBascketService
+    public interface IBasketService
     {
-        Task<List<BascketVeiwModel>> GetAllAsync(GetAllBascketVeiwModel input);
-        Task InsertAsync(AddToBascketViewModel bascket);
-        Task DeleteAsync(RemoveFromBascketViewModel input);
+        Task<List<BasketVeiwModel>> GetAllAsync(GetAllBasketVeiwModel input);
+        Task InsertAsync(AddToBasketViewModel Basket);
+        Task DeleteAsync(RemoveFromBasketViewModel input);
         Task Clear();
-        Task SubmitBascket(SubmitBascketViewModel input);
+        Task SubmitBasket(SubmitBasketViewModel input);
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lambor.Entities
 {
-    public class Bascket
+    public class Basket
     {
         public int Count { get; set; }
 

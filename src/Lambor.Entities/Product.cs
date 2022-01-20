@@ -17,7 +17,7 @@ namespace Lambor.Entities
         public int BrandId { get; set; }
 
 
-        public virtual ICollection<Bascket> Basckets { get; set; }
+        public virtual ICollection<Basket> Baskets { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
 
     }

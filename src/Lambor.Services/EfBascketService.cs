@@ -15,29 +15,29 @@ using System.Threading.Tasks;
 
 namespace Lambor.Services
 {
-    public class EfBascketService : IBascketService
+    public class EfBasketService : IBasketService
     {
         private readonly IUnitOfWork _uow;
-        private readonly DbSet<Bascket> _basckets;
+        private readonly DbSet<Basket> _Baskets;
         private readonly DbSet<Order> _orders;
         private readonly IHttpContextAccessor _contextAccessor;
 
 
-        public EfBascketService(IUnitOfWork uow, IHttpContextAccessor contextAccessor)
+        public EfBasketService(IUnitOfWork uow, IHttpContextAccessor contextAccessor)
         {
             _uow = uow ?? throw new ArgumentNullException(nameof(_uow));
-            _basckets = _uow.Set<Bascket>();
+            _Baskets = _uow.Set<Basket>();
             _orders = _uow.Set<Order>();
             _contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(contextAccessor));
         }
 
-        public async Task InsertAsync(AddToBascketViewModel input)
+        public async Task InsertAsync(AddToBasketViewModel input)
         {
-            var item = await _basckets.FirstOrDefaultAsync(p => p.UserId == GetCurrentUserId() && p.ProductId == input.ProductId);
+            var item = await _Baskets.FirstOrDefaultAsync(p => p.UserId == GetCurrentUserId() && p.ProductId == input.ProductId);
 
             if (item == null)
             {
-                await _basckets.AddAsync(new Bascket
+                await _Baskets.AddAsync(new Basket
                 {
                     Count = input.Count.HasValue ? (int)input.Count : 1,
                     ProductId = input.ProductId,
@@ -53,9 +53,9 @@ namespace Lambor.Services
             await _uow.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(RemoveFromBascketViewModel input)
+        public async Task DeleteAsync(RemoveFromBasketViewModel input)
         {
-            var item = await _basckets.FirstOrDefaultAsync(p => p.UserId == GetCurrentUserId() && p.ProductId == input.ProductId);
+            var item = await _Baskets.FirstOrDefaultAsync(p => p.UserId == GetCurrentUserId() && p.ProductId == input.ProductId);
 
             if (item == null)
             {
@@ -64,7 +64,7 @@ namespace Lambor.Services
 
             if (item.Count == 1 || input.Count == 0)
             {
-                _basckets.Remove(item);
+                _Baskets.Remove(item);
             }
 
             else
@@ -74,9 +74,9 @@ namespace Lambor.Services
             await _uow.SaveChangesAsync();
         }
 
-        public async Task SubmitBascket(SubmitBascketViewModel input)
+        public async Task SubmitBasket(SubmitBasketViewModel input)
         {
-            var orderItems = await _basckets.Select(p => new OrderItem()
+            var orderItems = await _Baskets.Select(p => new OrderItem()
             {
                 Count = p.Count,
                 ProductId = p.ProductId,
@@ -88,16 +88,16 @@ namespace Lambor.Services
             await _uow.SaveChangesAsync();
         }
 
-        public async Task<List<BascketVeiwModel>> GetAllAsync(GetAllBascketVeiwModel input)
+        public async Task<List<BasketVeiwModel>> GetAllAsync(GetAllBasketVeiwModel input)
         {
-            var query = _basckets.AsQueryable();
+            var query = _Baskets.AsQueryable();
 
             if (input.ProductId.HasValue)
             {
                 query = query.Where(x => x.ProductId == input.ProductId.Value);
             }
 
-            return await query.Select(p => new BascketVeiwModel()
+            return await query.Select(p => new BasketVeiwModel()
             {
                 Count = p.Count,
                 UserName = p.User.DisplayName,
@@ -109,7 +109,7 @@ namespace Lambor.Services
 
         public async Task Clear()
         {
-            _uow.RemoveRange(_basckets);
+            _uow.RemoveRange(_Baskets);
             await _uow.SaveChangesAsync();
         }
         private int GetCurrentUserId()

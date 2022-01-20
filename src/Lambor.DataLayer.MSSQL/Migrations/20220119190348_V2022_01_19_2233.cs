@@ -389,7 +389,7 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Basckets",
+                name: "Baskets",
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
@@ -398,15 +398,15 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Basckets", x => new { x.ProductId, x.UserId });
+                    table.PrimaryKey("PK_Baskets", x => new { x.ProductId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_Basckets_AppUsers_UserId",
+                        name: "FK_Baskets_AppUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AppUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Basckets_Products_ProductId",
+                        name: "FK_Baskets_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -498,8 +498,8 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Basckets_UserId",
-                table: "Basckets",
+                name: "IX_Baskets_UserId",
+                table: "Baskets",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -559,7 +559,7 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                 name: "AppUserUsedPasswords");
 
             migrationBuilder.DropTable(
-                name: "Basckets");
+                name: "Baskets");
 
             migrationBuilder.DropTable(
                 name: "OrderItems");

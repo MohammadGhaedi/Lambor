@@ -21,7 +21,7 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Lambor.Entities.Bascket", b =>
+            modelBuilder.Entity("Lambor.Entities.Basket", b =>
                 {
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -36,7 +36,7 @@ namespace Lambor.DataLayer.MSSQL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Basckets");
+                    b.ToTable("Baskets");
                 });
 
             modelBuilder.Entity("Lambor.Entities.Brand", b =>
@@ -756,16 +756,16 @@ namespace Lambor.DataLayer.MSSQL.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Lambor.Entities.Bascket", b =>
+            modelBuilder.Entity("Lambor.Entities.Basket", b =>
                 {
                     b.HasOne("Lambor.Entities.Product", "Product")
-                        .WithMany("Basckets")
+                        .WithMany("Baskets")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Lambor.Entities.Identity.User", "User")
-                        .WithMany("Basckets")
+                        .WithMany("Baskets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -917,7 +917,7 @@ namespace Lambor.DataLayer.MSSQL.Migrations
 
             modelBuilder.Entity("Lambor.Entities.Identity.User", b =>
                 {
-                    b.Navigation("Basckets");
+                    b.Navigation("Baskets");
 
                     b.Navigation("Claims");
 
@@ -939,7 +939,7 @@ namespace Lambor.DataLayer.MSSQL.Migrations
 
             modelBuilder.Entity("Lambor.Entities.Product", b =>
                 {
-                    b.Navigation("Basckets");
+                    b.Navigation("Baskets");
 
                     b.Navigation("OrderItems");
                 });

@@ -30,27 +30,6 @@ namespace Lambor.Controllers
             var order = await _orderService.GetAllAsync(null);
             return View(order);
         }
-
-        [AjaxOnly]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(OrderViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var order = await _orderService.GetAsync(model.Id);
-                if (order == null)
-                {
-                    ModelState.AddModelError("", OrderNotFound);
-                }
-                else
-                {
-                    order.OrderItems=model.OrderItems
-                    await _orderService.UpdateAsync(order);
-                }
-            }
-
-            return PartialView("_Create", model: model);
-        }
+        
     }
 }

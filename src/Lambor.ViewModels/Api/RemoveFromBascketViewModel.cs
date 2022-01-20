@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lambor.ViewModels.Api
 {
-    public class RemoveFromBascketViewModel
+    public class RemoveFromBasketViewModel
     {
         public int? Count { get; set; }
         public int ProductId { get; set; }

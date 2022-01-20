@@ -65,7 +65,7 @@ namespace Lambor.IocConfig
             services.AddScoped<IProductService, EfProductService>();
             services.AddScoped<ICategoryService, EfCategoryService>();
             services.AddScoped<IBrandService, EfBrandService>();
-            services.AddScoped<IBascketService, EfBascketService>();
+            services.AddScoped<IBasketService, EfBasketService>();
             services.AddScoped<IOrderService,EfOrderService>();
 
             return services;
