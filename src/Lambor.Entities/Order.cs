@@ -9,6 +9,7 @@ namespace Lambor.Entities
 {
     public class Order
     {
+        
         public long Id { get; set; }
         public string CostumerName { get; set; }
         public string CostumerPhone { get; set; }
