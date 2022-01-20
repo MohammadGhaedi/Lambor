@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lambor.Entities.Identity
 {

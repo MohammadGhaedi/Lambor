@@ -10,6 +10,7 @@ namespace Lambor.DataLayer.Mappings
         {
 
             builder.ToTable("AppUsers");
+            builder.HasIndex(x => x.ApiKey).IsUnique(true);
         }
     }
 }

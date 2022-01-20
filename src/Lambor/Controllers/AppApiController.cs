@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DNTBreadCrumb.Core;
 using Lambor.Services.Contracts;
 using Lambor.Services.Identity;
+using Lambor.Tools;
 using Lambor.ViewModels.Api;
 using Lambor.ViewModels.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -16,6 +17,7 @@ namespace Lambor.Controllers
     [ApiController]
     //[Authorize(Policy = ConstantPolicies.DynamicPermission)]
     [DisplayName("Application API")]
+    [ApiAuthFilter]
     public class AppApiController : Controller
     {
         private readonly IProductService _productService;

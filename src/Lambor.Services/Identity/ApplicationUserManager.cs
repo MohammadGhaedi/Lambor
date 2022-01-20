@@ -407,6 +407,12 @@ namespace Lambor.Services.Identity
             return base.UpdatePasswordHash(user, newPassword, validatePassword);
         }
 
+
+        public async Task<User> FindByApiKey(string apiKey)
+        {
+            return await _users.FirstOrDefaultAsync(x => x.ApiKey == apiKey);
+        }
+
         #endregion
     }
 }

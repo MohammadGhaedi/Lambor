@@ -1066,5 +1066,7 @@ namespace Lambor.Services.Contracts.Identity
         Task<PagedUsersListViewModel> GetPagedUsersListAsync(SearchUsersViewModel model, int pageNumber);
 
         #endregion
+
+        Task<User> FindByApiKey(string apiKey);
     }
 }

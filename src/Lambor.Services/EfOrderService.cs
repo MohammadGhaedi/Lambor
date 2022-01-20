@@ -22,7 +22,7 @@ namespace Lambor.Services
         {
             _uow = uow ?? throw new ArgumentNullException(nameof(uow));
             _orders = _uow.Set<Order>();
-            _orderItems=_uow.Set<OrderItem>();
+            _orderItems = _uow.Set<OrderItem>();
         }
         public async Task InsertAsync(Order order)
         {
@@ -31,20 +31,20 @@ namespace Lambor.Services
         }
         public async Task UpdateAsync(Order order)
         {
-            var item =await _orders.FindAsync(order.Id);
+            var item = await _orders.FindAsync(order.Id);
             if (item == null)
             {
                 throw new Exception();
             }
-        item.CostumerName = order.CostumerName;
-        item.CostumerPhone = order.CostumerPhone;
-        item.CostumerAddress = order.CostumerAddress;
-        item.Description = order.Description;
-        item.OrderDateTime = order.OrderDateTime;
-        item.OrderStatus= order.OrderStatus;
-        item.OrderItems = order.OrderItems;
-        await _uow.SaveChangesAsync();
-    }
+            item.CostumerName = order.CostumerName;
+            item.CostumerPhone = order.CostumerPhone;
+            item.CostumerAddress = order.CostumerAddress;
+            item.Description = order.Description;
+            item.OrderDateTime = order.OrderDateTime;
+            item.OrderStatus = order.OrderStatus;
+            item.OrderItems = order.OrderItems;
+            await _uow.SaveChangesAsync();
+        }
         public async Task DeleteAsync(int Id)
         {
             var item = await _orders.FindAsync(Id);
