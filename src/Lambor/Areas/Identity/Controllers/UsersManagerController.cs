@@ -104,6 +104,15 @@ namespace Lambor.Areas.Identity.Controllers
 
         [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> CreateUserApi(int userId)
+        {
+            User thisUser = null;
+            thisUser = await _userManager.CreateUserApiKey(userId);
+            return await returnUserCardPartialView(thisUser);
+        }
+
+        [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> ChangeUserTwoFactorAuthenticationStat(int userId, bool activate)
         {
             User thisUser = null;

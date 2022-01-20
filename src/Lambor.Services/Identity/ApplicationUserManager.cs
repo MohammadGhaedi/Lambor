@@ -413,6 +413,16 @@ namespace Lambor.Services.Identity
             return await _users.FirstOrDefaultAsync(x => x.ApiKey == apiKey);
         }
 
+        public async Task<User> CreateUserApiKey(int userId)
+        {
+            var user = await _users.Include(p=>p.Roles).FirstOrDefaultAsync(p=>p.Id == userId);
+            user.ApiKey = Guid.NewGuid().ToString();
+            await _uow.SaveChangesAsync();
+            return user;
+        }
+
+
+
         #endregion
     }
 }
