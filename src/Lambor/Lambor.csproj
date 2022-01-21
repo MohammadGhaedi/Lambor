@@ -53,6 +53,7 @@
     <Content Remove="wwwroot\js\jquery.bootstrap-modal-ajax-form.js" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
   <ItemGroup>
