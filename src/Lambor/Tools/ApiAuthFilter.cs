@@ -10,7 +10,7 @@ namespace Lambor.Tools
 {
     public class ApiAuthFilter : Attribute, IAsyncAuthorizationFilter
     {
-        private const string ApiKeyHeaderKey = "api-key";
+        private const string ApiKeyHeaderKey = "apikey";
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {

@@ -21,7 +21,7 @@ namespace Lambor.Controllers
     [ApiController]
     //[Authorize(Policy = ConstantPolicies.DynamicPermission)]
     [DisplayName("Application API")]
-    //[ApiAuthFilter]
+    [ApiAuthFilter]
     public class AppApiController : Controller
     {
         private readonly IProductService _productService;
@@ -43,7 +43,7 @@ namespace Lambor.Controllers
 
         [HttpGet]
         [Route("GetAllProducts")]
-        public async Task<List<ProductViewModel>> GetAllProducts([FromQuery] GetAllProductInputViewModel input)
+        public async Task<List<ProductViewModel>> GetAllProducts([FromQuery] GetAllProductInputViewModel input,[FromHeader] string apikey)
         {
             return await _productService.GetAllAsync(input);
         }
