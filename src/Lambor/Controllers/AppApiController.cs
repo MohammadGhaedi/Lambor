@@ -21,7 +21,7 @@ namespace Lambor.Controllers
     [ApiController]
     //[Authorize(Policy = ConstantPolicies.DynamicPermission)]
     [DisplayName("Application API")]
-    [ApiAuthFilter]
+    //[ApiAuthFilter]
     public class AppApiController : Controller
     {
         private readonly IProductService _productService;
@@ -29,14 +29,16 @@ namespace Lambor.Controllers
         private readonly IBrandService _brandService;
         private readonly IBasketService _BasketService;
         private readonly IOrderService _orderService;
+        private readonly IOrderItemsService _orderItemsService;
 
-        public AppApiController(IProductService productService, ICategoryService categoryService, IBrandService brandService, IBasketService BasketService, IOrderService orderService)
+        public AppApiController(IProductService productService, ICategoryService categoryService, IBrandService brandService, IBasketService BasketService, IOrderService orderService, IOrderItemsService orderItemsService)
         {
             _productService = productService;
             _categoryService = categoryService;
             _brandService = brandService;
             _BasketService = BasketService;
             _orderService = orderService;
+            _orderItemsService = orderItemsService;
         }
 
         [HttpGet]
@@ -97,13 +99,13 @@ namespace Lambor.Controllers
 
         [HttpPut]
         [Route("UpdateOrder")]
-        public async Task<OrderViewModel> UpdateOrder([FromBody] OrderViewModel input)
+        public async Task<OrderViewModel> UpdateOrder([FromQuery] UpdateOrderViewModel input)
         {
-           return await _orderService.UpdateAsync(input);
+            return await _orderService.UpdateAsync(input);
         }
         [HttpGet]
         [Route("DeleteOrder")]
-        public async Task DeleteOder([FromQuery] OrderViewModel input)
+        public async Task DeleteOder([FromQuery] DeleteOrderViewModel input)
         {
             await _orderService.DeleteAsync(input);
         }
@@ -113,13 +115,35 @@ namespace Lambor.Controllers
         {
             return await _orderService.GetAllAsync(input);
         }
+
         [HttpGet]
-        [Route("GetOrder")]
-        public async Task<OrderViewModel> GetOrder([FromQuery] OrderViewModel input)
+        [Route("GetAllOrderItems")]
+        public async Task<List<OrderItemsViewModel>> GetAllOrderItems([FromQuery] GetAllOrderItemsViewModel input)
         {
-            return await _orderService.GetAsync(input);
+            return await _orderItemsService.GetAllOrderItems(input);
         }
 
+
+        [HttpPut]
+        [Route("UpdateOrderItems")]
+        public async Task<OrderItemsViewModel> UpdateOrderItems([FromQuery] UpdateOrderItemsViewModel input)
+        {
+            return await _orderItemsService.UpdateAsync(input);
+        }
+
+        [HttpGet]
+        [Route("DeleteOrderItems")]
+        public async Task DeleteOrderItems([FromQuery] DeleteOrderItemsViewModel input)
+        {
+            await _orderItemsService.DeleteAsync(input);
+        }
+
+        [HttpGet]
+        [Route("ChangeOrderStatus")]
+        public async Task ChangeOrderStatus ([FromQuery] ChangeOrderStatusVeiwModel input)
+        {
+            await _orderService.ChangeOrderStatus(input);
+        }
 
     }
 }

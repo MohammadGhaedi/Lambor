@@ -121,7 +121,6 @@ namespace Lambor.Services
                 BrandName = item.Brand.Name
             }).FirstOrDefaultAsync(p => p.Id == id);
 
-            //var item = await _products.FindAsync(id);
             if (item == null)
             {
                 throw new Exception();

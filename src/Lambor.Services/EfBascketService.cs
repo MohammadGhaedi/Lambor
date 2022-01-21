@@ -101,7 +101,7 @@ namespace Lambor.Services
             {
                 Count = p.Count,
                 UserName = p.User.DisplayName,
-                UserId = p.UserId,
+                UserId = p.UserId, 
                 ProductId = p.ProductId,
                 ProductName = p.Product.Name
             }).ToListAsync();

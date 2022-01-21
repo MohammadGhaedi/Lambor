@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Lambor.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace Lambor.ViewModels.Api
 {
-    public class AddToBasketViewModel
+    public class OrderItemsViewModel
     {
-        public int? Count { get; set; }
+        public long Id { get; set; }
+        public int Count { get; set; }
         public int ProductId { get; set; }
-
+        public string ProductName { get; set; }
+        public long OrderId { get; set; }
     }
 }

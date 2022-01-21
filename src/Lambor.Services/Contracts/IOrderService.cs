@@ -11,10 +11,9 @@ namespace Lambor.Services.Contracts
     public interface IOrderService
     {
         Task InsertAsync(Order order);
-        Task<OrderViewModel> UpdateAsync(OrderViewModel order);
-        Task DeleteAsync(OrderViewModel input);
-        Task<OrderViewModel> GetAsync(OrderViewModel input);
+        Task<OrderViewModel> UpdateAsync(UpdateOrderViewModel order);
+        Task DeleteAsync(DeleteOrderViewModel input);
         Task<List<OrderViewModel>> GetAllAsync(GetAllOrderInputViewModel input);
-
+        Task ChangeOrderStatus(ChangeOrderStatusVeiwModel input);
     }
 }

@@ -26,7 +26,7 @@ namespace Lambor.Services
             await _orders.AddAsync(order);
             await _uow.SaveChangesAsync();
         }
-        public async Task<OrderViewModel> UpdateAsync(OrderViewModel order)
+        public async Task<OrderViewModel> UpdateAsync(UpdateOrderViewModel order)
         {
             var item = await _orders.FirstOrDefaultAsync(q=>q.Id==order.Id);
             if (item == null)
@@ -37,23 +37,20 @@ namespace Lambor.Services
             item.CostumerPhone = order.CostumerPhone;
             item.CostumerAddress = order.CostumerAddress;
             item.Description = order.Description;
-            item.OrderDateTime = order.OrderDateTime;
-            item.OrderStatus = order.OrderStatus;
-            //item.OrderItems.Clear();
-            //item.OrderItems = order.OrderItems;
             await _uow.SaveChangesAsync();
 
             return new OrderViewModel
             {
+                Id = item.Id,
+                CostumerName = item.CostumerName,
+                CostumerPhone = item.CostumerPhone,
+                CostumerAddress = item.CostumerAddress,
                 Description = item.Description,
                 OrderDateTime = item.OrderDateTime,
                 OrderStatus = item.OrderStatus,
-                CostumerAddress = item.CostumerAddress,
-                CostumerName = item.CostumerName,
-                CostumerPhone = item.CostumerPhone
             };
         }
-        public async Task DeleteAsync(OrderViewModel input)
+        public async Task DeleteAsync(DeleteOrderViewModel input)
         {
             var item = await _orders.FindAsync(input.Id);
             if (item == null)
@@ -99,7 +96,7 @@ namespace Lambor.Services
 
             return await query.Select(x => new OrderViewModel
             {
-                CostumerAddress = x.CostumerName,
+                CostumerAddress = x.CostumerAddress,
                 CostumerName = x.CostumerName,
                 CostumerPhone = x.CostumerPhone,
                 Description = x.Description,
@@ -109,26 +106,16 @@ namespace Lambor.Services
             }).ToListAsync();
         }
 
-        public async Task<OrderViewModel> GetAsync(OrderViewModel input)
+        public async Task ChangeOrderStatus(ChangeOrderStatusVeiwModel input)
         {
-            var item = await _orders.FindAsync(input.Id);
-
-            if (item==null)
+            var item = await _orders.FirstOrDefaultAsync(q => q.Id == input.Id);
+            if (item == null)
             {
                 throw new Exception();
             }
+            item.OrderStatus = (OrderStatus)1;
+            await _uow.SaveChangesAsync();
 
-            return new OrderViewModel
-            {
-                CostumerAddress = item.CostumerAddress,
-                CostumerName = item.CostumerName,
-                CostumerPhone = item.CostumerPhone,
-                Description = item.Description,
-                Id = item.Id,
-                OrderDateTime = item.OrderDateTime,
-                OrderStatus = item.OrderStatus
-            };
         }
-
     }
 }

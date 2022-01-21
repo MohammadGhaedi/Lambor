@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Lambor.ViewModels.Api
 {
-    public class GetAllBasketVeiwModel
+    public class GetAllOrderItemsViewModel
     {
         public int? ProductId { get; set; }
+        public long? OrderId { get; set; }
+
 
     }
 }
