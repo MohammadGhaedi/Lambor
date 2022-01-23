@@ -6,9 +6,9 @@
     <tr>
         <th class="text-center">عکس </th>
         <th class="text-center">نام </th>
+        <th class="text-center">برند</th>
         <th class="text-center">قیمت</th>
         <th class="text-center">دسته بندی</th>
-        <th class="text-center">برند</th>
         <th class="text-center">شرح</th>
        
     </tr>
@@ -28,9 +28,9 @@
             <tr>
                 <td class="text-center"><img src="@(string.IsNullOrWhiteSpace(item.Image)?"/images/product.png":item.Image)" class="rounded img-thumbnail" height="50" width="50" /></td>
                 <td class="text-center">@item.Name</td>
+                <td class="text-center">@item.BrandName</td>
                 <td class="text-center">@item.Price</td>
                 <td class="text-center">@item.CategoryName</td>
-                <td class="text-center">@item.BrandName</td>
                 <td class="text-center">@item.Description</td>
 
                 
@@ -46,3 +46,4 @@
   </tbody>
  </table>
 </div>
+
