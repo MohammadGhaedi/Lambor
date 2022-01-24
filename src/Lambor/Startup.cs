@@ -14,6 +14,7 @@ namespace Lambor
 {
     public class Startup
     {
+        readonly string LamborSpecificOrigins = "_lamborSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -41,6 +42,21 @@ namespace Lambor
                 .WithEncryptionKey("This is my secure key!");
             });
             services.AddCloudscribePagination();
+
+            var origins = Configuration.GetSection("AllowedOrigins")?.Value?.Split(",");
+            if (origins is not null)
+            {
+                services.AddCors(options =>
+                {
+                    options.AddPolicy(name: LamborSpecificOrigins,
+                        builder =>
+                        {
+                            builder.WithOrigins(origins);
+                        });
+                });
+            }
+
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddSwaggerGen();
@@ -65,7 +81,7 @@ namespace Lambor
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors(LamborSpecificOrigins);
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 

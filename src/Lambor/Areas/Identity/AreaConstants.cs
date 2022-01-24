@@ -5,6 +5,7 @@
     /// </summary>
     public static class AreaConstants
     {
+        public const string MainArea = "";
         public const string IdentityArea = "Identity";
     }
 }
