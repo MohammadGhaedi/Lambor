@@ -64,9 +64,9 @@ namespace Lambor.Controllers
 
         [HttpGet]
         [Route("GetAllBaskets")]
-        public async Task<List<BasketVeiwModel>> GetAllBaskets([FromQuery] GetAllBasketVeiwModel input)
+        public async Task<List<BasketVeiwModel>> GetAllBaskets()
         {
-            return await _BasketService.GetAllAsync(input);
+            return await _BasketService.GetAllAsync();
         }
 
         [HttpGet]

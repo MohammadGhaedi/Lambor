@@ -8,7 +8,7 @@ namespace Lambor.Services.Contracts
 {
     public interface IBasketService
     {
-        Task<List<BasketVeiwModel>> GetAllAsync(GetAllBasketVeiwModel input);
+        Task<List<BasketVeiwModel>> GetAllAsync();
         Task InsertAsync(AddToBasketViewModel Basket);
         Task DeleteAsync(RemoveFromBasketViewModel input);
         Task Clear();
