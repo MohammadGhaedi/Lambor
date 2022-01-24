@@ -17,7 +17,7 @@ using Org.BouncyCastle.Math.EC.Rfc7748;
 
 namespace Lambor.Controllers
 {
-    //[Route("api/app")]
+    [Route("api/app")]
     [ApiController]
     //[Authorize(Policy = ConstantPolicies.DynamicPermission)]
     [DisplayName("Application API")]
