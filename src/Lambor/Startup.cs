@@ -51,7 +51,7 @@ namespace Lambor
                     options.AddPolicy(name: LamborSpecificOrigins,
                         builder =>
                         {
-                            builder.WithOrigins(origins);
+                            builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
                         });
                 });
             }
