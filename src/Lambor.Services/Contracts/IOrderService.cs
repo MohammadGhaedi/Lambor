@@ -14,6 +14,7 @@ namespace Lambor.Services.Contracts
         Task<OrderViewModel> UpdateAsync(UpdateOrderViewModel order);
         Task DeleteAsync(DeleteOrderViewModel input);
         Task<List<OrderViewModel>> GetAllAsync(GetAllOrderInputViewModel input);
+        Task<OrderViewModel> GetAsync(int id);
         Task ChangeOrderStatus(ChangeOrderStatusVeiwModel input);
     }
 }

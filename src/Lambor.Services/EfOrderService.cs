@@ -106,6 +106,21 @@ namespace Lambor.Services
             }).ToListAsync();
         }
 
+        public async Task<OrderViewModel> GetAsync(int id)
+        {
+            var item =await _orders.FirstOrDefaultAsync(o => o.Id == id);
+            return new OrderViewModel
+            {
+                CostumerAddress = item.CostumerAddress,
+                CostumerName = item.CostumerName,
+                CostumerPhone = item.CostumerPhone,
+                Description = item.Description,
+                Id = item.Id,
+                OrderDateTime = item.OrderDateTime,
+                OrderStatus = item.OrderStatus
+            };
+        }
+
         public async Task ChangeOrderStatus(ChangeOrderStatusVeiwModel input)
         {
             var item = await _orders.FirstOrDefaultAsync(q => q.Id == input.Id);

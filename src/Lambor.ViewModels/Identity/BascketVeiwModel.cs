@@ -24,5 +24,8 @@ namespace Lambor.ViewModels.Identity
         public int ProductId { get; set; }
         [Display(Name = "محصول")]
         public string ProductName { get; set; }
+
+        public long UnitPrice { get; set; }
+        public long TotalPrice => Count * UnitPrice;
     }
 }

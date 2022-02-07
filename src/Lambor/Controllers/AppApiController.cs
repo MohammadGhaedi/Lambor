@@ -103,12 +103,21 @@ namespace Lambor.Controllers
         {
             return await _orderService.UpdateAsync(input);
         }
+
         [HttpGet]
         [Route("DeleteOrder")]
         public async Task DeleteOder([FromQuery] DeleteOrderViewModel input)
         {
             await _orderService.DeleteAsync(input);
         }
+
+        [HttpGet]
+        [Route("GetOrder")]
+        public async Task<OrderViewModel> GetAllOrders([FromQuery] int id)
+        {
+            return await _orderService.GetAsync(id);
+        }
+
         [HttpGet]
         [Route("GetAllOrders")]
         public async Task<List<OrderViewModel>> GetAllOrders([FromQuery] GetAllOrderInputViewModel input)

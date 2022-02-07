@@ -9,7 +9,6 @@ namespace Lambor.ViewModels.Api
 {
     public class GetAllOrderItemsViewModel
     {
-        public int? ProductId { get; set; }
         public long? OrderId { get; set; }
 
 

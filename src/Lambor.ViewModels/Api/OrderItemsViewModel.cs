@@ -15,5 +15,7 @@ namespace Lambor.ViewModels.Api
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public long OrderId { get; set; }
+        public long UnitPrice { get; set; }
+        public long TotalPrice => Count * UnitPrice;
     }
 }

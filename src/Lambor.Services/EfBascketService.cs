@@ -98,7 +98,8 @@ namespace Lambor.Services
                 UserName = p.User.DisplayName,
                 UserId = p.UserId,
                 ProductId = p.ProductId,
-                ProductName = p.Product.Name
+                ProductName = p.Product.Name,
+                UnitPrice = p.Product.Price
             }).ToListAsync();
         }
 

@@ -26,11 +26,6 @@ namespace Lambor.Services
         {
             var query = _orderItems.AsQueryable();
 
-            if (input.ProductId.HasValue)
-            {
-                query = query.Where(x => x.ProductId == input.ProductId.Value);
-            }
-
             if (input.OrderId.HasValue)
             {
                 query = query.Where(x => x.OrderId == input.OrderId.Value);
@@ -42,7 +37,8 @@ namespace Lambor.Services
                 Count = p.Count,
                 OrderId = p.OrderId,
                 ProductId = p.ProductId,
-                ProductName = p.Product.Name
+                ProductName = p.Product.Name,
+                UnitPrice = p.Product.Price
             }).ToListAsync();
         }
 
@@ -62,7 +58,8 @@ namespace Lambor.Services
                 Count = item.Count,
                 ProductId = item.ProductId,
                 ProductName = item.Product.Name,
-                OrderId = item.OrderId
+                OrderId = item.OrderId,
+                UnitPrice = item.Product.Price
             };
         }
 
