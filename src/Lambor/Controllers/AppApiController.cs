@@ -97,9 +97,9 @@ namespace Lambor.Controllers
             await _BasketService.SubmitBasket(input);
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("UpdateOrder")]
-        public async Task<OrderViewModel> UpdateOrder([FromQuery] UpdateOrderViewModel input)
+        public async Task<OrderViewModel> UpdateOrder([FromForm] UpdateOrderViewModel input)
         {
             return await _orderService.UpdateAsync(input);
         }
@@ -133,9 +133,9 @@ namespace Lambor.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPost]
         [Route("UpdateOrderItems")]
-        public async Task<OrderItemsViewModel> UpdateOrderItems([FromQuery] UpdateOrderItemsViewModel input)
+        public async Task<OrderItemsViewModel> UpdateOrderItems([FromForm] UpdateOrderItemsViewModel input)
         {
             return await _orderItemsService.UpdateAsync(input);
         }
